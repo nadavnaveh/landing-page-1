@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>למידה חכמה עם בינה מלאכותית</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Logo Styles */
+        .logo-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Example Image Styles */
+        .example-image-container {
+            margin: 2rem auto;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .example-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .example-image:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea11 0%, #764ba233 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(45deg, #4299e1, #667eea);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, 30px) rotate(180deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #1a365d;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2d3748;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #4299e1, #667eea);
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #4a5568;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Buttons */
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-size: 1.25rem;
+            background: linear-gradient(45deg, #4299e1, #667eea);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            margin: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(66, 153, 225, 0.4);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2.5rem;
+            background: #f7fafc;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #4299e1, #667eea);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(66, 153, 225, 0.1);
+        }
+
+        .step:hover::before {
+            transform: scaleX(1);
+        }
+
+        .step i {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #4299e1, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: #f7fafc;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            padding: 2.5rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .feature::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #4299e122, #667eea22);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(66, 153, 225, 0.2);
+        }
+
+        .feature:hover::after {
+            transform: scale(1.2);
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #4299e1, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            padding: 2rem;
+            background: #f7fafc;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            font-size: 4rem;
+            color: #4299e1;
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            opacity: 0.2;
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: 5rem 0;
+            background: #f7fafc;
+        }
+
+        .form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form {
+            text-align: center;
+        }
+        
+        .form .cta-button {
+            margin: 1rem auto;
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem 0;
+            background: #2d3748;
+            color: white;
+            text-align: center;
+        }
+
+        .social-links {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #4299e1, #667eea);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #4299e1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.4);
+        }
+
+        .social-links a:hover::before {
+            opacity: 1;
+        }
+
+        .social-links i {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.25rem;
+            }
+
+            .steps, .features-grid, .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo-container">
+        <img src="assets/images/logo.png" alt="Logo" class="logo">
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>תפתחו את הראש! ללמוד חכם יותר ומהר יותר עם בינה מלאכותית</h1>
+            <p class="subtitle">
+                הבינה המלאכותית שלנו בודקת מה אתם טובים בו ומה פחות, ובגלל זה היא בונה לכם תוכנית לימודים אישית שתעזור לכם להגיע למטרה יותר מהר
+            </p>
+            <div class="example-image-container">
+                <img src="assets/images/example.png" alt="Example" class="example-image">
+            </div>
+            <a href="#contact" class="cta-button">בואו נגלה את דרך הלמידה שלכם</a>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2>איך זה עובד?</h2>
+            <div class="steps">
+                <div class="step">
+                    <i class="fas fa-search fa-3x" style="color: #4299e1; margin-bottom: 1rem;"></i>
+                    <h3>בודקים מה אתם יודעים</h3>
+                    <p>הבינה המלאכותית שלנו תבדוק מה רמת הידע שלכם עכשיו, מה מעניין אתכם ואיך אתם הכי אוהבים ללמוד</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-tasks fa-3x" style="color: #4299e1; margin-bottom: 1rem;"></i>
+                    <h3>בונים לכם תוכנית אישית</h3>
+                    <p>תקבלו תוכנית לימודים עם כל הדברים הכי טובים ומועילים לכם</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-robot fa-3x" style="color: #4299e1; margin-bottom: 1rem;"></i>
+                    <h3>הבינה המלאכותית עוזרת כל הזמן</h3>
+                    <p>תקבלו פידבק תוך כדי תנועה, תוכלו לראות כמה התקדמתם ולשנות את התוכנית אם צריך</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2>מה אפשר לעשות עם זה?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-brain fa-2x" style="color: #4299e1; margin-bottom: 1rem;"></i>
+                    <h3>בינה מלאכותית בונה לכם את תוכנית הלימודים</h3>
+                    <p>תוכנית מותאמת אישית שמתעדכנת לפי ההתקדמות שלכם</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-hands-helping fa-2x" style="color: #4299e1; margin-bottom: 1rem;"></i>
+                    <h3>מקבלים עזרה ותמיכה שמתאימה בדיוק לכם</h3>
+                    <p>תמיכה אישית ומותאמת לסגנון הלמידה שלכם</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-line fa-2x" style="color: #4299e1; margin-bottom: 1rem;"></i>
+                    <h3>רואים בדיוק איפה אתם עומדים ומה קורה</h3>
+                    <p>מעקב מדויק אחר ההתקדמות והישגים</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2>מה אנשים אומרים?</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <p>"התוכנית הזו שינתה לי את החיים! אני לומד פי שניים יותר מהר ממה שחשבתי שאפשר."</p>
+                    <p><strong>- דניאל כהן, סטודנט לתכנות</strong></p>
+                </div>
+                <div class="testimonial">
+                    <p>"הבינה המלאכותית הזו פשוט מדהימה. היא מתאימה את עצמה אליי ומאפשרת לי ללמוד בצורה שהיא רק שלי."</p>
+                    <p><strong>- מיכל לוי, מעצבת גרפית</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>רוצים לדעת עוד?</h2>
+            <form class="form">
+                <div class="form-group">
+                    <label for="name">שם</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">אימייל</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">הודעה</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="cta-button">שלחו לנו הודעה</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.instagram.com/software.creators.ai" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:softwarecreatorsai@hotmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>&copy; 2025 למידה חכמה עם בינה מלאכותית. כל הזכויות שמ
