@@ -6,12 +6,26 @@
     <title>למידה חכמה עם בינה מלאכותית</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Logo Styles */
+        /* Logo Styles - Updated for mobile */
         .logo-container {
             position: absolute;
             top: 20px;
             left: 20px;
             z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                position: relative;
+                top: 10px;
+                left: auto;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .hero-content {
+                padding-top: 0;
+            }
         }
 
         .logo {
@@ -548,4 +562,8 @@
                 <a href="https://www.instagram.com/software.creators.ai" target="_blank"><i class="fab fa-instagram"></i></a>
                 <a href="mailto:softwarecreatorsai@hotmail.com"><i class="fas fa-envelope"></i></a>
             </div>
-            <p>&copy; 2025 למידה חכמה עם בינה מלאכותית. כל הזכויות שמ
+            <p>&copy; 2025 למידה חכמה עם בינה מלאכותית. כל הזכויות שמורות</p>
+        </div>
+    </footer>
+</body>
+</html>
